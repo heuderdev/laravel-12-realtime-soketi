@@ -11,11 +11,17 @@
 @push('scripts')
 
 <script>
-    document.addEventListener('livewire:navigated', function() {        
+    document.addEventListener('livewire:navigated', function() {
         Livewire.on('messageReceived', message => {
             console.log('Mensagem recebida via Livewire:', message[0]);
         });
+
+        window.Echo.channel('message')
+            .listen('MessageSent', (payload) => {
+                console.log('EVENTO RECEBIDO', payload);
+            });
     });
+
 </script>
 
 @endpush
